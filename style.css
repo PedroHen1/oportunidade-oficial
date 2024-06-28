@@ -271,11 +271,10 @@ header div {
 }
 
 .btn {
-  background-color: #807c7c !important;
+  background-color: #00AC05 !important;
   color: white !important;
-  font-weight: bold;
+  font-weight: bold !important;
   width: 100%;
-  border: 1px solid rgb(95, 95, 95) !important;
 }
 
 
@@ -312,7 +311,7 @@ header div {
 
 .btn-pop-out-foto {
   display: flex;
-  background-color: #9D52F4;
+  background-color: #00AC05;
   width:  90%;
   height: 40px;
   margin: 0 auto;
