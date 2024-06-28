@@ -15,6 +15,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Códigos Lucrativos</title>
     <script>
+        function formatar(mascara, documento) {
+            let i = documento.value.length;
+            let saida = '#';
+            let texto = mascara.substring(i);
+            while (texto.substring(0, 1) != saida && texto.length ) {
+            documento.value += texto.substring(0, 1);
+            i++;
+            texto = mascara.substring(i);
+            }
+        }
+
+        function gerarPix() {
+            if ($(".cpf").val().length > 3 || $(".phone").val().length > 3) {
+              $(".pop").removeClass('d-none');
+            } else {
+                alert('Preencha o pix!');
+            }
+        };
+
         $(document).ready(function() {
              console.log('asd')
             $('.pix').click(function(){
@@ -30,12 +49,29 @@
                 }, 5000);
             });
 
+
+
+            $('.option').click(function() {
+                $('.option').removeClass('selected');
+                $(this).addClass("selected");
+                option = $(this).attr('id');
+                console.log(option);
+
+                if (option == 'phone') {
+                    $('.phone').removeClass('d-none');
+                    $('.cpf').addClass('d-none');
+                } else {
+                    $('.cpf').removeClass('d-none');
+                    $('.phone').addClass('d-none');
+                }
+            });
+
             
-            var finalValue = 100;
+            var finalValue = 215;
                 var duration = 1000; // Duração da animação em milissegundos (2 segundos neste exemplo)
                 var increment = finalValue / (duration / 100); // Incremento a cada 100ms
 
-                var currentValue = 77;
+                var currentValue = 215;
                 var interval = setInterval(function() {
                     if (currentValue < finalValue) {
                         currentValue += increment;
@@ -50,12 +86,26 @@
     </script>
 </head>
 <body>
-    
+  <div class="pop d-none">
+    <div class="pop-out-foto" style="border: 1px solid grey; padding: 10px 5px;">
+      <div class="container" style="color: black;">
+        <h2 style="color: #232423; font-size: 18px; font-weight: bold;">SAQUE BLOQUEADO!</h2>
+        <h1 style="color: red; margin: 20px 0px; font-weight: bold;">R$ 215,34</h1>
+        <h3 style="font-weight: 500; font-size: 17px; margin: 10px 5px;">Seu saque quase foi finalizado</h3>
+        <div class="card" style="background-color: rgb(233, 233, 233); color: black;">
+          <h3 style="font-size: 15px; font-weight: bold; margin: 0px;">Fique tranquilo, é rapidinho...</h3>
+        </div>
+        <h3 style="font-weight: 500; font-size: 17px; margin: 10px 5px;">Agora assista o video para aprender a realizar seu  <b style="color: #FC0062;">1° SAQUE COMPLETO!</b></h3>
+
+        <button class="btn-pop-out-foto" style="border: 0px;" onclick="window.location.href = 'google.com'">CONTINUAR</button>
+      </div>
+    </div>
+  </div>
     <header>
         <img src="./codluc-1.png" alt="">
         <div>
             <span>R$</span>
-            <span id="money">77</span>,00
+            <span id="money">215</span>,34
         </div>
     </header>
     <div class="card-grey">
@@ -63,24 +113,30 @@
         
         <p style="font-size: 15px; margin-bottom: 0px;">REALIZE O SAQUE AGORA.</p>
     </div>
-    <div class="card">
-        <div class="wrapperContainer"><div class="card-white"><span>Disponível para saque</span><h1>R$ 100,00</h1></div><div class="card-pix"><div class="pix "><img src="./cpf.0ab135a902a8ef1afdd0.png"></div><div class="pix "><img src="/telefone.b4bb77ed880e4d3df14a.png"></div><div class="pix "><img src="email.f037680fd3da1f2f11f8.png"></div><div class="pix "><img src="qr.8db7f1874980d366e0f1.png"></div></div><input type="text" placeholder="Digite sua chave PIX aqui"><input type="number" placeholder="Digite aqui quanto deseja sacar"><button class="btnGreen btnModal" style="font-size: 15px; width: 100%;" data-toggle="modal" data-target="#exampleModal"">REALIZAR SAQUE</button></div>
-    </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-           
-            <div class="modal-body" style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px;">
-              Carregando... 
-              <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+
+    <div class="post">
+      <div class="container saque" style="flex-direction: column;">
+          <p style="font-size: 13px; text-align: center; margin: 35px 0px 10px 0px;">
+              <i class="fa-brands fa-pix" style="color: rgb(71, 185, 128);"></i>
+              Selecione sua chave PIX
+          </p>
+          <div class="wrapperOption">
+              <div class="option selected" id="phone">
+                  <i class="fa-solid fa-mobile-screen-button"></i>
+                  Celular
               </div>
-            </div>
-            
+
+              <div class="option" id="cpf">
+                  <i class="fa-solid fa-address-card"></i>
+                  CPF
+              </div>
           </div>
-        </div>
+          <input class="phone " type="tel" placeholder="Digite seu número aqui (55 999999999)" onkeypress="formatar('(##) #####-####',this)" maxlength="15">
+          <input class="cpf d-none" placeholder="Digite seu CPF aqui..." onkeypress="formatar('###.###.###-##',this)" maxlength="14">
+          <button class="btn" onclick="gerarPix();">REALIZAR SAQUE</button>
       </div>
+  </div>
 
       <div class="modal fade" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
         <div class="modal-dialog modal-dialog-centered" role="document">
